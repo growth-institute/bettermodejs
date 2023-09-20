@@ -1,0 +1,31 @@
+# Dependencias
+/node_modules
+
+# Directorios de compilación y distribución
+/dist
+/build
+
+# Archivos de entorno
+.env
+
+# Archivos de configuración de IDEs y editores de texto
+/.idea
+*.swp
+*.swo
+*.swn
+.vscode/
+
+# Registro y archivos temporales
+*.log
+*.tmp
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Yarn
+.yarn/
+.pnp/
+.yarnrc.yml
+.yarnrc
+.yarn-integrity
