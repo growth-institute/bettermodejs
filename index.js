@@ -980,6 +980,13 @@ export class BetterMode {
 		}
 	}
 
+	/**
+	 * Creates a reply to a post in the BetterMode API.
+	 *
+	 * @param {string} idPost - The ID of the post to reply to.
+	 * @param {string} content - The content of the reply.
+	 * @returns {Promise<Object|null>} - The created reply data or null if an error occurred.
+	 */
 	async createReply(idPost, content) {
 		const query = `mutation createReply($postId: ID!, $input: CreatePostInput!) {
 			createReply(postId: $postId, input: $input) {
