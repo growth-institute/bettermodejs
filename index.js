@@ -104,4 +104,58 @@ export class BetterMode {
 		}
 	}
 
+
+	async getFeed(accessToken, options = {}) {
+		const FEED_QUERY = `
+        query getFeed($after: String, $before: String, $filterBy: [PostListFilterByInput!], $limit: Int!, $offset: Int, $onlyMemberSpaces: Boolean, $orderBy: PostListOrderByEnum, $postTypeIds: [String!], $reverse: Boolean) {
+            feed(
+                after: $after
+                before: $before
+                filterBy: $filterBy
+                limit: $limit
+                offset: $offset
+                onlyMemberSpaces: $onlyMemberSpaces
+                orderBy: $orderBy
+                postTypeIds: $postTypeIds
+                reverse: $reverse
+            ) {
+                nodes {...}
+                pageInfo {...}
+                totalCount
+            }
+        }
+    `;
+		const variables = {
+			limit: options.limit || 10,
+			...options
+		};
+
+		try {
+			const response = await axios({
+				url: this.uri,
+				method: 'post',
+				headers: {
+					'Authorization': `Bearer ${accessToken}`,
+					'Content-Type': 'application/json'
+				},
+				data: {
+					query: FEED_QUERY,
+					variables: variables
+				}
+			});
+
+			if (response.data?.data?.feed) {
+				return response.data.data.feed;
+			} else {
+				const errorMessage = response.data?.errors?.map(err => `${err.message}`).join(", ") || "No specific error message received";
+				console.error('Error: No feed data received. Server response:', errorMessage);
+				return null;
+			}
+		} catch (error) {
+			console.error('Error occurred while fetching feed:', error.response?.status, error.response?.statusText, error.message);
+			return null;
+		}
+	}
+
+
 }

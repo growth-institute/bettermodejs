@@ -75,9 +75,6 @@ describe('Get Spaces and setAccessToken', () => {
 		}
 	});
 });
-
-
-// describe get access token from en and then call getMembers
 describe('Get Members', () => {
 	it('should get members', async () => {
 		const betterMode = new BetterMode();
@@ -88,7 +85,6 @@ describe('Get Members', () => {
 		expect(members.totalCount).toBeGreaterThan(0);
 	});
 });
-
 describe('Search Member by Email', () => {
 	it('should find a specific member by email', async () => {
 		const betterMode = new BetterMode();
@@ -134,3 +130,41 @@ describe('Search Member by Email', () => {
 		});
 	});
 });
+
+describe('Get Feed', () => {
+	it('should fetch feed data with detailed information', async () => {
+		const betterMode = new BetterMode();
+		const accessToken = await checkAccessToken(); // Asume que checkAccessToken es una función existente
+		expect(accessToken).toBeDefined();
+
+		const feedData = await betterMode.getFeed(accessToken, {
+			limit: 5,
+			orderBy: 'CREATED_AT',
+			reverse: true
+		});
+		console.info("Feed data:", feedData);
+		expect(feedData).toBeDefined();
+		expect(feedData.totalCount).toBeGreaterThan(0);
+		expect(feedData.nodes.length).toBeGreaterThan(0);
+
+		const firstNode = feedData.nodes[0];
+		expect(firstNode.id).toBeDefined();
+		expect(firstNode.title).toBeDefined();
+		expect(firstNode.createdAt).toBeDefined();
+		expect(firstNode.space).toBeDefined();
+		expect(firstNode.owner).toBeDefined();
+		expect(firstNode.reactions).toBeDefined();
+		expect(firstNode.replies).toBeDefined();
+
+		console.log('First feed item:', {
+			id: firstNode.id,
+			title: firstNode.title,
+			createdAt: firstNode.createdAt,
+			spaceName: firstNode.space.name,
+			ownerName: firstNode.owner.member.displayName,
+			reactionsCount: firstNode.reactionsCount,
+			repliesCount: firstNode.replies.totalCount
+		});
+	});
+});
+
