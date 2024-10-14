@@ -1,4 +1,4 @@
-import {BetterMode} from './index.js';
+import { BetterMode } from './index.js';
 import dotenv from 'dotenv';
 import fs from 'fs/promises';
 import path from 'path';
@@ -18,10 +18,10 @@ async function saveAccessToken(accessToken) {
 	let envContent = await fs.readFile(envPath, 'utf8');
 
 	const regex = /^ACCESS_TOKEN=.*/m;
-	if (regex.test(envContent)) {
-		envContent = envContent.replace(regex, `ACCESS_TOKEN=${accessToken}`);
+	if(regex.test(envContent)) {
+		envContent = envContent.replace(regex, `ACCESS_TOKEN=${ accessToken }`);
 	} else {
-		envContent += `\nACCESS_TOKEN=${accessToken}`;
+		envContent += `\nACCESS_TOKEN=${ accessToken }`;
 	}
 
 	await fs.writeFile(envPath, envContent);
@@ -31,7 +31,7 @@ async function saveAccessToken(accessToken) {
 async function setAccessToken(betterMode, member = null) {
 	const existingToken = await checkAccessToken();
 
-	if (existingToken) {
+	if(existingToken) {
 		console.log('Existing ACCESS_TOKEN found in .env file');
 		return 'Existing ACCESS_TOKEN found';
 	}
@@ -39,13 +39,13 @@ async function setAccessToken(betterMode, member = null) {
 	const clientId = process.env.CLIENT_ID;
 	const clientSecret = process.env.CLIENT_SECRET;
 	const networkId = process.env.NETWORK_ID;
-	const url = `https://${clientId}:${clientSecret}@app.tribe.so/graphql`;
+	const url = `https://${ clientId }:${ clientSecret }@app.tribe.so/graphql`;
 
 	const accessToken = await betterMode.getAppToken(networkId, url, member);
 
 	let response = '';
 
-	if (accessToken) {
+	if(accessToken) {
 		await saveAccessToken(accessToken);
 		response = member ? 'Member access token set successfully' : 'Unauthorized: Tribe Access Token was renewed, try again';
 	} else {
@@ -62,10 +62,10 @@ describe('Get Spaces and setAccessToken', () => {
 		expect([
 			'Unauthorized: Tribe Access Token was renewed, try again',
 			'Unauthorized: Tribe Access Token was not regenerated',
-			'Existing ACCESS_TOKEN found'
+			'Existing ACCESS_TOKEN found',
 		]).toContain(response);
 
-		if (response !== 'Existing ACCESS_TOKEN found') {
+		if(response !== 'Existing ACCESS_TOKEN found') {
 			const envPath = path.resolve(process.cwd(), '.env');
 			const envContent = await fs.readFile(envPath, 'utf8');
 			const envLines = envContent.split('\n');
@@ -75,7 +75,6 @@ describe('Get Spaces and setAccessToken', () => {
 		}
 	});
 });
-
 
 // describe get access token from en and then call getMembers
 describe('Get Members', () => {
@@ -97,15 +96,15 @@ describe('Search Member by Email', () => {
 
 		const searchOptions = {
 			limit: 15,
-			query: "jesus@growthinstitute.com",
-			orderBy: "createdAt",
+			query: 'jesus@growthinstitute.com',
+			orderBy: 'createdAt',
 			reverse: true,
 			status: [
-				"Suspended",
-				"VERIFIED",
-				"UNVERIFIED"
+				'Suspended',
+				'VERIFIED',
+				'UNVERIFIED',
 			],
-			filterBy: []
+			filterBy: [],
 		};
 
 		const members = await betterMode.getMembers(accessToken, searchOptions);
@@ -118,7 +117,7 @@ describe('Search Member by Email', () => {
 
 		// Verificar que el primer miembro encontrado tiene el correo electrónico buscado
 		const firstMember = members.edges[0].node;
-		expect(firstMember.email).toBe("jesus@growthinstitute.com");
+		expect(firstMember.email).toBe('jesus@growthinstitute.com');
 
 		// Verificaciones adicionales sobre el miembro encontrado
 		expect(firstMember.name).toBeDefined();
@@ -130,7 +129,7 @@ describe('Search Member by Email', () => {
 			name: firstMember.name,
 			email: firstMember.email,
 			id: firstMember.id,
-			status: firstMember.status
+			status: firstMember.status,
 		});
 	});
 });
