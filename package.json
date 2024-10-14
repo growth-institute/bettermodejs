@@ -1,31 +1,33 @@
 {
-	"name": "bettermodejs",
-	"version": "2.0.0",
-	"main": "index.js",
-	"author": "0xjesus <jesus@growthinstitute.com>",
-	"license": "MIT",
-	"type": "module",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/growth-institute/bettermodejs.git"
-	},
-	"devDependencies": {
-		"@babel/core": "^7.22.20",
-		"@babel/preset-env": "^7.25.8",
-		"babel-jest": "^29.7.0",
-		"jest": "^29.7.0",
-		"mocha": "^10.7.3",
-		"react": "^18.2.0"
-	},
-	"scripts": {
-		"test": "node --experimental-vm-modules ./node_modules/.bin/jest"
-	},
-	"dependencies": {
-		"axios": "^1.5.0",
-		"dotenv": "^16.4.5",
-		"dotenv-expand": "^11.0.6",
-		"graphql": "^16.9.0",
-		"graphql-request": "^7.1.0",
-		"graphql-tag": "^2.12.6"
-	}
+  "name": "bettermodejs",
+  "version": "3.0.0",
+  "main": "index.js",
+  "author": "0xjesus <jesus@growthinstitute.com>",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/growth-institute/bettermodejs.git"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.25.7",
+    "@babel/core": "^7.22.20",
+    "@babel/preset-env": "^7.25.8",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "mocha": "^10.7.3",
+    "react": "^18.2.0"
+  },
+  "scripts": {
+    "build": "babel index.js -d dist",
+    "test": "node --experimental-vm-modules ./node_modules/.bin/jest"
+  },
+  "dependencies": {
+    "axios": "^1.5.0",
+    "dotenv": "^16.4.5",
+    "dotenv-expand": "^11.0.6",
+    "graphql": "^16.9.0",
+    "graphql-request": "^7.1.0",
+    "graphql-tag": "^2.12.6"
+  }
 }
