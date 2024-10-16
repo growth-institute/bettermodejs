@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { BetterMode } from './index.js';
 
-const betterMode = new BetterMode(process.env.ACCESS_TOKEN);
+
 
 //const spaces = await betterMode.getSpaces();
 //console.log(JSON.stringify(spaces, null, 2));
