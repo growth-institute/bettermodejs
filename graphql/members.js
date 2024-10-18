@@ -186,6 +186,9 @@ const GET_FEED = `query getFeed($after: String, $before: String, $filterBy: [Pos
 			      repliesCount
 			      totalRepliesCount
 			      reactionsCount
+			      authMemberProps{
+			        subscribed
+			      }
 			      space {
 			        name
 			      }

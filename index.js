@@ -268,7 +268,7 @@ export class BetterMode {
 			const response = await this.makeRequest(queryGraph, variablesGraph);
 
 			if (response.data?.addReaction) {
-				return response.data.addReaction.status;
+				return response.data;
 			} else {
 				console.error('Error: No add reaction data received:', response.errors);
 				return null;
@@ -299,7 +299,7 @@ export class BetterMode {
 			const response = await this.makeRequest(queryGraph, variablesGraph);
 
 			if (response.data?.removeReaction) {
-				return response.data.removeReaction.status;
+				return response.data;
 			} else {
 				console.error('Error: No remove reaction data received:', response.errors);
 				return null;
@@ -329,7 +329,7 @@ export class BetterMode {
 			const response = await this.makeRequest(queryGraph, variablesGraph);
 
 			if (response.data?.subscribe) {
-				return response.data.subscribe.status;
+				return response.data;
 			} else {
 				console.error('Error: No subscribe data received:', response.errors);
 				return null;
@@ -357,7 +357,7 @@ export class BetterMode {
 			const response = await this.makeRequest(queryGraph, variablesGraph);
 
 			if (response.data?.unsubscribe) {
-				return response.data.unsubscribe.status;
+				return response.data;
 			} else {
 				console.error('Error: No unsubscribe data received:', response.errors);
 				return null;
